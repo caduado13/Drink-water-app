@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drink Water</title>
+    <script src="https://kit.fontawesome.com/c8a338c44e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div class="wrapper">
+        <div class="clip-path"></div>
+        <div class="nav-bar elements-spacings">
+            <h1>Drink Water</h1>
+            <ul class="list-menu">
+                <li><i class="fa-solid fa-gear"></i>Settings</li>
+                <li><i class="fa-solid fa-right-to-bracket"></i>Login</li>
+            </ul>
+        </div>
+        <div class="image"><img src="./imgs/PinClipart.com_drinking-water-clipart_446681.png" alt="" width="70%" ></div>
+        <div class="meta-div elements-spacings">
+            <h2>Goal of the day</h2>
+            <p>Set the goal you want to drink per day</p>
+            <input type="number" name="" id="goal-number" placeholder="Goal here in liters">
+            <button id="set-goal">Set goal</button>
+        </div>
+        <div class="buttons elements-spacings">
+            <button id="btn-250" value="250" class="value-btns"><i class="fa-solid fa-glass-water" style="padding-right: 3px;"></i>250 ml</button>
+            <button id="btn-500" value="500" class="value-btns"><i class="fa-solid fa-glass-water" style="padding-right: 3px;"></i>500 ml</button>
+            <button id="btn-900" value="900" class="value-btns"><i class="fa-solid fa-glass-water" style="padding-right: 3px;"></i>900 ml</button>
+            <button id="drink-btn">Drink</button>
+        </div>
+        <div class="main-content elements-spacings">
+            <div>
+                <p><i class="fa-solid fa-glass-water"></i>Você tomou <span class="drinked-span"></span> da meta de <span class="goal-span"></span></p>
+            </div>
+            <div class="progress-bar">
+                <p>
+                    <span class="progress-spandrinked">0</span>
+                    <span>/</span>
+                    <span class="progress-spangoal">0</span>
+                </p>
+                <div class="progress"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>  
+</html>
