@@ -6,13 +6,40 @@ const goalBtn = document.querySelector("#set-goal");
 const goalInput = document.querySelector("#goal-number");
 const goalSpan = document.querySelector(".goal-span");
 const main = document.querySelector(".main-content");
-const progressSpandrinked = document.querySelector(".progress-spandrinked")
-const progressSpangoal = document.querySelector(".progress-spangoal")
-
+const progressSpandrinked = document.querySelector(".progress-span-drinked")
+const progressSpangoal = document.querySelector(".progress-span-goal")
 
 let drink = 0;
 let drinked = 0;
 let goalDay = 0;
+let formatedDrink = 0;
+
+let now = new Date();
+let hour = now.getHours();
+let minute = now.getMinutes();
+if(hour == 0 && minute == 0){
+    localStorage.removeItem("goal-day")
+    localStorage.removeItem("drinked-day")
+    window.alert("it's midnight now, the page will reload reseting all values!")
+    location.reload();
+}
+console.log(hour, minute)
+onload = () =>{
+    let goalStorage = JSON.parse(localStorage.getItem("goal-day"));
+    let drinkStorage = JSON.parse(localStorage.getItem("drinked-day"));
+    
+    if(goalStorage > 0){
+        goalDay = goalStorage;
+        drinked = drinkStorage;
+        formatedDrink = drinkStorage < 1000 ? `${drinkStorage} ML` : `${drinkStorage/1000} L`
+        progress.style.width = `${Math.floor((drinkStorage * 100)/goalDay)}%`
+        appearMain(goalStorage);
+    }
+    if(drinkStorage == null){
+        progressSpandrinked.innerText = `${drink} L`;
+        drinkedSpan.innerText = `${drink} L`;
+    }
+}
 
 buttons.forEach(el => {
     el.addEventListener("click", () => {
@@ -25,11 +52,15 @@ buttons.forEach(el => {
 function addDrinked(){
     if(goalDay > 0){
         drinked += drink;
-        drinkedSpan.innerText = drinked < 1000 ? `${drinked}ML` : `${drinked/1000}L`
-        goalSpan.innerText = `${goalInput.value}L`;
-        progress.style.width = `${Math.floor((drinked * 100)/goalDay)}%`
+        addDrinkLS(drinked);
+        let drinkStorage = JSON.parse(localStorage.getItem("drinked-day"));
+        formatedDrink = drinkStorage < 1000 ? `${drinkStorage} ML` : `${drinkStorage/1000} L`;
+        drinkedSpan.innerText = formatedDrink
+        goalSpan.innerText = `${goalDay/1000} L`;
+        progress.style.width = `${Math.floor((drinkStorage * 100)/goalDay)}%`
     };
-    progressSpandrinked.innerText = drinked+"L";
+
+    progressSpandrinked.innerText = formatedDrink;
 }
 
 function changeClass(){
@@ -40,14 +71,25 @@ function changeClass(){
     }
 }
 
-function setGoal(){
+function setGoal(){  
+    goalDay = goalInput.value * 1000; 
+    addGoalLS(goalDay)
+    appearMain(goalInput.value*1000)
+}
+
+function appearMain(span){
     main.style.opacity = "1"
-    drinkedSpan.innerText = drinked < 1000 ? `${drinked}ML` : `${drinked/1000}L`
-    goalSpan.innerText = `${goalInput.value}L`;
-    goalDay = goalInput.value * 1000;
-    progressSpandrinked.innerText = drinked+"L";
-    progressSpangoal.innerText = goalDay+"L"
-    
+    drinkedSpan.innerText = formatedDrink;
+    goalSpan.innerText = `${span/1000} L`;
+    progressSpandrinked.innerText = formatedDrink;
+    progressSpangoal.innerText = goalDay/1000 + "L";
+}
+
+function addGoalLS(add){
+    localStorage.setItem("goal-day", JSON.stringify(add))
+}
+function addDrinkLS(add){
+    localStorage.setItem("drinked-day", JSON.stringify(add))
 }
 
 goalBtn.addEventListener("click", setGoal)
