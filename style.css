@@ -118,11 +118,14 @@
         color: #fff;
         font-weight: bold;
         background-color: #0077b6;
-        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        box-shadow: 0px 5px 0px 0px #0077b6D9;
+        cursor: pointer;
     }
 
     .value-btns.pressed{
         pointer-events: none;
+        box-shadow: 0px 0px 0px 0px #0077b6cc;
+        transform: translateY(5px);
     }
 
     .main-content{
